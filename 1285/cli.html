@@ -1,0 +1,507 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Command line interface &mdash; msprime 0.1.dev1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="_static/thebelab.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/thebelab-helper.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Developer documentation" href="development.html" />
+    <link rel="prev" title="Utilities" href="utilities.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> msprime
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickref.html">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demography.html">Specifying Demography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ancestry.html">Simulating ancestry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mutations.html">Simulating mutations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="likelihoods.html">Computing likelihoods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Command line interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#msp">msp</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#msp-simulate">msp simulate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Positional Arguments">Positional Arguments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Named Arguments">Named Arguments</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#mspms">mspms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#supported-features">Supported Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#argument-details">Argument details</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Positional Arguments">Positional Arguments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Named Arguments">Named Arguments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Behaviour">Behaviour</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Structure and migration">Structure and migration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Demography">Demography</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Miscellaneous">Miscellaneous</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Developer documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CITATION.html">Citing msprime</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">PORTING IN PROGRESS: Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">PORTING IN PROGRESS: API</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">msprime</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Command line interface</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/cli.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="command-line-interface">
+<span id="sec-cli"></span><h1>Command line interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h1>
+<p>Two command_line applications are provided with <code class="docutils literal notranslate"><span class="pre">msprime</span></code>: <a class="reference internal" href="#sec-msp"><span class="std std-ref">msp</span></a> and
+<a class="reference internal" href="#sec-mspms"><span class="std std-ref">mspms</span></a>. The <strong class="command">msp</strong> program is an experimental interface for
+interacting with the library, and is a POSIX compliant command line
+interface. The <strong class="command">mspms</strong> program is a fully-<strong class="command">ms</strong> compatible
+interface. This is useful for those who wish to get started quickly with using
+the library, and also as a means of plugging <code class="docutils literal notranslate"><span class="pre">msprime</span></code> into existing work
+flows. However, there is a substantial overhead involved in translating data
+from <code class="docutils literal notranslate"><span class="pre">msprime</span></code>’s native history file into legacy formats, and so new code
+should use the <a class="reference internal" href="api.html#sec-api"><span class="std std-ref">Python API</span></a> where possible.</p>
+<div class="section" id="msp">
+<span id="sec-msp"></span><h2>msp<a class="headerlink" href="#msp" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">msp</span></code> program provides a convenient interface to the <a class="reference internal" href="api.html#sec-api"><span class="std std-ref">msprime API</span></a>. It is based on subcommands that either generate or consume a
+tree sequence file. The <code class="docutils literal notranslate"><span class="pre">simulate</span></code> subcommand runs a
+simulation storing the results in a file. The other commands are concerned with
+converting this file into other formats.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This tool is very new, and the interface may need to change
+over time. This should be considered an alpha feature!</p>
+</div>
+<div class="section" id="msp-simulate">
+<h3>msp simulate<a class="headerlink" href="#msp-simulate" title="Permalink to this headline">¶</a></h3>
+<p><strong class="command">msp simulate</strong> provides a command line interface to the
+<a class="reference internal" href="ancestry.html#msprime.simulate" title="msprime.simulate"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.simulate()</span></code></a> API function. Using the parameters provided at the
+command line, we run a simulation and then save the resulting tree sequence
+to the file provided as an argument.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">msp</span> <span class="n">simulate</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">length</span> <span class="n">LENGTH</span><span class="p">]</span>
+                    <span class="p">[</span><span class="o">--</span><span class="n">recombination</span><span class="o">-</span><span class="n">rate</span> <span class="n">RECOMBINATION_RATE</span><span class="p">]</span>
+                    <span class="p">[</span><span class="o">--</span><span class="n">mutation</span><span class="o">-</span><span class="n">rate</span> <span class="n">MUTATION_RATE</span><span class="p">]</span>
+                    <span class="p">[</span><span class="o">--</span><span class="n">effective</span><span class="o">-</span><span class="n">population</span><span class="o">-</span><span class="n">size</span> <span class="n">EFFECTIVE_POPULATION_SIZE</span><span class="p">]</span>
+                    <span class="p">[</span><span class="o">--</span><span class="n">random</span><span class="o">-</span><span class="n">seed</span> <span class="n">RANDOM_SEED</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">compress</span><span class="p">]</span>
+                    <span class="n">sample_size</span> <span class="n">tree_sequence</span>
+</pre></div>
+</div>
+<div class="section" id="Positional Arguments">
+<h4>Positional Arguments<a class="headerlink" href="#Positional Arguments" title="Permalink to this headline">¶</a></h4>
+<dl class="option-list">
+<dt><kbd>sample_size</kbd></dt>
+<dd><p>The number of genomes in the sample</p>
+</dd>
+<dt><kbd>tree_sequence</kbd></dt>
+<dd><p>The msprime tree sequence file</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="Named Arguments">
+<h4>Named Arguments<a class="headerlink" href="#Named Arguments" title="Permalink to this headline">¶</a></h4>
+<dl class="option-list">
+<dt><kbd>--length, -L</kbd></dt>
+<dd><p>The length of the simulated region in base pairs.</p>
+</dd>
+<dt><kbd>--recombination-rate, -r</kbd></dt>
+<dd><p>The recombination rate per base per generation</p>
+</dd>
+<dt><kbd>--mutation-rate, -u</kbd></dt>
+<dd><p>The mutation rate per base per generation</p>
+</dd>
+<dt><kbd>--effective-population-size, -N</kbd></dt>
+<dd><p>The diploid effective population size Ne</p>
+</dd>
+<dt><kbd>--random-seed, -s</kbd></dt>
+<dd><p>The random seed. If not specified one is chosen randomly</p>
+</dd>
+<dt><kbd>--compress, -z</kbd></dt>
+<dd><p>Enable zlib compression</p>
+</dd>
+</dl>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The way in which recombination and mutation rates are specified
+is different to <strong class="command">ms</strong>. In <strong class="command">ms</strong> these rates are scaled by the
+length of the simulated region, whereas we use rates per unit distance.
+The rationale for this change is to simplify running simulations on a
+variety of sequence lengths, so that we need to change only one parameter
+and not three simultaneously. See <a class="reference internal" href="api.html#sec-api"><span class="std std-ref">PORTING IN PROGRESS: API</span></a> for more on this point.</p>
+</div>
+</div>
+</div>
+<div class="section" id="mspms">
+<span id="sec-mspms"></span><h2>mspms<a class="headerlink" href="#mspms" title="Permalink to this headline">¶</a></h2>
+<p>The <strong class="command">mspms</strong> program is an <strong class="command">ms</strong>-compatible
+command line interface to the <code class="docutils literal notranslate"><span class="pre">msprime</span></code> library. This interface should
+be useful for legacy applications, where it can be used as a drop-in
+replacement for <strong class="command">ms</strong>. This interface is not recommended for new applications,
+particularly if the simulated trees are required as part of the output
+as Newick is very inefficient. The <a class="reference internal" href="api.html#sec-api"><span class="std std-ref">Python API</span></a> is the recommended interface,
+providing direct access to the structures used within <code class="docutils literal notranslate"><span class="pre">msprime</span></code>.</p>
+<div class="section" id="supported-features">
+<h3>Supported Features<a class="headerlink" href="#supported-features" title="Permalink to this headline">¶</a></h3>
+<p><strong class="command">mspms</strong> supports a subset of <strong class="command">ms</strong>’s functionality. Please
+<a class="reference external" href="https://github.com/tskit-dev/msprime/issues">open an issue</a> on
+GitHub if there is a feature of <strong class="command">ms</strong> that you would like to see
+added. We  currently support:</p>
+<ul class="simple">
+<li><p>Basic functionality (sample size, replicates, tree and haplotype output);</p></li>
+<li><p>Recombination (via the <code class="docutils literal notranslate"><span class="pre">-r</span></code> option);</p></li>
+<li><p>Spatial structure with arbitrary migration matrices;</p></li>
+<li><p>Support for <strong class="command">ms</strong> demographic events. (The implementation of the
+<code class="docutils literal notranslate"><span class="pre">-es</span></code> option is limited, and has restrictions on how it may be
+combined with other options.)</p></li>
+</ul>
+<p>Gene-conversion is not currently supported, but is planned for a future release.</p>
+</div>
+<div class="section" id="argument-details">
+<h3>Argument details<a class="headerlink" href="#argument-details" title="Permalink to this headline">¶</a></h3>
+<p>This section provides the detailed listing of the arguments to
+<strong class="command">mspms</strong> (also available via <code class="docutils literal notranslate"><span class="pre">mspms</span> <span class="pre">--help</span></code>). See
+the <a class="reference external" href="http://thirteen-01.stat.iastate.edu/snoweye/phyclust/document/msdoc.pdf">documentation for ms</a>
+for details on how these values should be interpreted.</p>
+<p><p>mspms is an ms-compatible interface to the msprime library. It simulates the coalescent with recombination for a variety of demographic models and outputs the results in a text-based format. It supports a subset of the functionality available in ms and aims for full compatibility.</p>
+</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">mspms</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">mutation</span><span class="o">-</span><span class="n">rate</span> <span class="n">theta</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">trees</span><span class="p">]</span>
+             <span class="p">[</span><span class="o">--</span><span class="n">recombination</span> <span class="n">rho</span> <span class="n">num_loci</span><span class="p">]</span>
+             <span class="p">[</span><span class="o">--</span><span class="n">gene</span><span class="o">-</span><span class="n">conversion</span> <span class="n">gc_recomb_ratio</span> <span class="n">tract_length</span><span class="p">]</span>
+             <span class="p">[</span><span class="o">--</span><span class="n">hotspots</span> <span class="n">HOTSPOTS</span> <span class="p">[</span><span class="n">HOTSPOTS</span> <span class="o">...</span><span class="p">]]</span>
+             <span class="p">[</span><span class="o">--</span><span class="n">structure</span> <span class="n">value</span> <span class="p">[</span><span class="n">value</span> <span class="o">...</span><span class="p">]]</span>
+             <span class="p">[</span><span class="o">--</span><span class="n">migration</span><span class="o">-</span><span class="n">matrix</span><span class="o">-</span><span class="n">entry</span> <span class="n">i</span> <span class="n">j</span> <span class="n">rate</span><span class="p">]</span>
+             <span class="p">[</span><span class="o">--</span><span class="n">migration</span><span class="o">-</span><span class="n">matrix</span> <span class="n">entry</span> <span class="p">[</span><span class="n">entry</span> <span class="o">...</span><span class="p">]]</span>
+             <span class="p">[</span><span class="o">--</span><span class="n">migration</span><span class="o">-</span><span class="n">rate</span><span class="o">-</span><span class="n">change</span> <span class="n">t</span> <span class="n">x</span><span class="p">]</span>
+             <span class="p">[</span><span class="o">--</span><span class="n">migration</span><span class="o">-</span><span class="n">matrix</span><span class="o">-</span><span class="n">entry</span><span class="o">-</span><span class="n">change</span> <span class="n">time</span> <span class="n">i</span> <span class="n">j</span> <span class="n">rate</span><span class="p">]</span>
+             <span class="p">[</span><span class="o">--</span><span class="n">migration</span><span class="o">-</span><span class="n">matrix</span><span class="o">-</span><span class="n">change</span> <span class="n">entry</span> <span class="p">[</span><span class="n">entry</span> <span class="o">...</span><span class="p">]]</span>
+             <span class="p">[</span><span class="o">--</span><span class="n">growth</span><span class="o">-</span><span class="n">rate</span> <span class="n">alpha</span><span class="p">]</span>
+             <span class="p">[</span><span class="o">--</span><span class="n">population</span><span class="o">-</span><span class="n">growth</span><span class="o">-</span><span class="n">rate</span> <span class="n">population_id</span> <span class="n">alpha</span><span class="p">]</span>
+             <span class="p">[</span><span class="o">--</span><span class="n">population</span><span class="o">-</span><span class="n">size</span> <span class="n">population_id</span> <span class="n">size</span><span class="p">]</span>
+             <span class="p">[</span><span class="o">--</span><span class="n">growth</span><span class="o">-</span><span class="n">rate</span><span class="o">-</span><span class="n">change</span> <span class="n">t</span> <span class="n">alpha</span><span class="p">]</span>
+             <span class="p">[</span><span class="o">--</span><span class="n">population</span><span class="o">-</span><span class="n">growth</span><span class="o">-</span><span class="n">rate</span><span class="o">-</span><span class="n">change</span> <span class="n">t</span> <span class="n">population_id</span> <span class="n">alpha</span><span class="p">]</span>
+             <span class="p">[</span><span class="o">--</span><span class="n">size</span><span class="o">-</span><span class="n">change</span> <span class="n">t</span> <span class="n">x</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">population</span><span class="o">-</span><span class="n">size</span><span class="o">-</span><span class="n">change</span> <span class="n">t</span> <span class="n">population_id</span> <span class="n">x</span><span class="p">]</span>
+             <span class="p">[</span><span class="o">--</span><span class="n">population</span><span class="o">-</span><span class="n">split</span> <span class="n">t</span> <span class="n">i</span> <span class="n">j</span><span class="p">]</span>
+             <span class="p">[</span><span class="o">--</span><span class="n">admixture</span> <span class="n">t</span> <span class="n">population_id</span> <span class="n">proportion</span><span class="p">]</span>
+             <span class="p">[</span><span class="o">--</span><span class="n">random</span><span class="o">-</span><span class="n">seeds</span> <span class="n">x1</span> <span class="n">x2</span> <span class="n">x3</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">precision</span> <span class="n">PRECISION</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">V</span><span class="p">]</span>
+             <span class="p">[</span><span class="o">-</span><span class="n">f</span> <span class="n">FILENAME</span><span class="p">]</span>
+             <span class="n">sample_size</span> <span class="n">num_replicates</span>
+</pre></div>
+</div>
+<div class="section" id="Positional Arguments">
+<h4>Positional Arguments<a class="headerlink" href="#Positional Arguments" title="Permalink to this headline">¶</a></h4>
+<dl class="option-list">
+<dt><kbd>sample_size</kbd></dt>
+<dd><p>The number of genomes in the sample</p>
+</dd>
+<dt><kbd>num_replicates</kbd></dt>
+<dd><p>Number of independent replicates</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="Named Arguments">
+<h4>Named Arguments<a class="headerlink" href="#Named Arguments" title="Permalink to this headline">¶</a></h4>
+<dl class="option-list">
+<dt><kbd>-V, --version</kbd></dt>
+<dd><p>show program’s version number and exit</p>
+</dd>
+<dt><kbd>-f, --filename</kbd></dt>
+<dd><p>Insert commands from a file at this point in the command line.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="Behaviour">
+<h4>Behaviour<a class="headerlink" href="#Behaviour" title="Permalink to this headline">¶</a></h4>
+<dl class="option-list">
+<dt><kbd>--mutation-rate, -t</kbd></dt>
+<dd><p>Mutation rate theta=4*N0*mu</p>
+</dd>
+<dt><kbd>--trees, -T</kbd></dt>
+<dd><p>Print out trees in Newick format</p>
+</dd>
+<dt><kbd>--recombination, -r</kbd></dt>
+<dd><p>Recombination at rate rho=4*N0*r where r is the rate of recombination between the ends of the region being simulated; num_loci is the number of sites between which recombination can occur</p>
+</dd>
+<dt><kbd>--gene-conversion, -c</kbd></dt>
+<dd><p>TODO</p>
+</dd>
+<dt><kbd>--hotspots, -v</kbd></dt>
+<dd><p>Recombination hotspots defined according to the msHOT format. This is defined as a sequence: n (start stop scale)+ where n is the number of hotspots and each hotspot spans [start, stop) where the recombination rate is the background recombination rate times scale. Adjacent hotspots may stop and start at the same position but must otherwise be non-overlapping and specified in ascending order.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="Structure and migration">
+<h4>Structure and migration<a class="headerlink" href="#Structure and migration" title="Permalink to this headline">¶</a></h4>
+<dl class="option-list">
+<dt><kbd>--structure, -I</kbd></dt>
+<dd><p>Sample from populations with the specified deme structure. The arguments are of the form ‘num_populations n1 n2 … [4N0m]’, specifying the number of populations, the sample configuration, and optionally, the migration rate for a symmetric island model</p>
+</dd>
+<dt><kbd>--migration-matrix-entry, -m</kbd></dt>
+<dd><p>Sets an entry M[i, j] in the migration matrix to the specified rate. i and j are (1-indexed) population IDs. Multiple options can be specified.</p>
+</dd>
+<dt><kbd>--migration-matrix, -ma</kbd></dt>
+<dd><p>Sets the migration matrix to the specified value. The entries are in the order M[1,1], M[1, 2], …, M[2, 1],M[2, 2], …, M[N, N], where N is the number of populations.</p>
+</dd>
+<dt><kbd>--migration-rate-change, -eM</kbd></dt>
+<dd><p>Set the symmetric island model migration rate to x / (npop - 1) at time t</p>
+</dd>
+<dt><kbd>--migration-matrix-entry-change, -em</kbd></dt>
+<dd><p>Sets an entry M[i, j] in the migration matrix to the specified rate at the specified time. i and j are (1-indexed) population IDs.</p>
+</dd>
+<dt><kbd>--migration-matrix-change, -ema</kbd></dt>
+<dd><p>Sets the migration matrix to the specified value at time t.The entries are in the order M[1,1], M[1, 2], …, M[2, 1],M[2, 2], …, M[N, N], where N is the number of populations.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="Demography">
+<h4>Demography<a class="headerlink" href="#Demography" title="Permalink to this headline">¶</a></h4>
+<dl class="option-list">
+<dt><kbd>--growth-rate, -G</kbd></dt>
+<dd><p>Set the growth rate to alpha for all populations.</p>
+</dd>
+<dt><kbd>--population-growth-rate, -g</kbd></dt>
+<dd><p>Set the growth rate to alpha for a specific population.</p>
+</dd>
+<dt><kbd>--population-size, -n</kbd></dt>
+<dd><p>Set the size of a specific population to size*N0.</p>
+</dd>
+<dt><kbd>--growth-rate-change, -eG</kbd></dt>
+<dd><p>Set the growth rate for all populations to alpha at time t</p>
+</dd>
+<dt><kbd>--population-growth-rate-change, -eg</kbd></dt>
+<dd><p>Set the growth rate for a specific population to alpha at time t</p>
+</dd>
+<dt><kbd>--size-change, -eN</kbd></dt>
+<dd><p>Set the population size for all populations to x * N0 at time t</p>
+</dd>
+<dt><kbd>--population-size-change, -en</kbd></dt>
+<dd><p>Set the population size for a specific population to x * N0 at time t</p>
+</dd>
+<dt><kbd>--population-split, -ej</kbd></dt>
+<dd><p>Move all lineages in population i to j at time t. Forwards in time, this corresponds to a population split in which lineages in j split into i. All migration rates for population i are set to zero.</p>
+</dd>
+<dt><kbd>--admixture, -es</kbd></dt>
+<dd><p>Split the specified population into a new population, such that the specified proportion of lineages remains in the population population_id. Forwards in time this corresponds to an admixture event. The new population has ID num_populations + 1. Migration rates to and from the new population are set to 0, and growth rate is 0 and the population size for the new population is N0.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="Miscellaneous">
+<h4>Miscellaneous<a class="headerlink" href="#Miscellaneous" title="Permalink to this headline">¶</a></h4>
+<dl class="option-list">
+<dt><kbd>--random-seeds, -seeds</kbd></dt>
+<dd><p>Random seeds (must be three integers)</p>
+</dd>
+<dt><kbd>--precision, -p</kbd></dt>
+<dd><p>Number of values after decimal place to print</p>
+</dd>
+</dl>
+</div>
+<p><p>If you use msprime in your work, please cite the following paper:
+Jerome Kelleher, Alison M Etheridge and Gilean McVean (2016), “Efficient
+Coalescent Simulation and Genealogical Analysis for Large Sample Sizes”,
+PLoS Comput Biol 12(5): e1004842. doi: 10.1371/journal.pcbi.1004842</p>
+</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="development.html" class="btn btn-neutral float-right" title="Developer documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="utilities.html" class="btn btn-neutral float-left" title="Utilities" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2015-2020, Tskit Developers
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

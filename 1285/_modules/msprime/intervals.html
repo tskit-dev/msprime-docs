@@ -1,0 +1,579 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>msprime.intervals &mdash; msprime 0.1.dev1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/thebelab.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/thebelab-helper.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> msprime
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickref.html">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demography.html">Specifying Demography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ancestry.html">Simulating ancestry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mutations.html">Simulating mutations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../likelihoods.html">Computing likelihoods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../utilities.html">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html">Developer documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CITATION.html">Citing msprime</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">PORTING IN PROGRESS: Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">PORTING IN PROGRESS: API</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">msprime</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>msprime.intervals</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for msprime.intervals</h1><div class="highlight"><pre>
+<span></span><span class="c1">#</span>
+<span class="c1"># Copyright (C) 2020 University of Oxford</span>
+<span class="c1">#</span>
+<span class="c1"># This file is part of msprime.</span>
+<span class="c1">#</span>
+<span class="c1"># msprime is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># msprime is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with msprime.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c1">#</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Utilities for working with intervals and interval maps.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="c1"># TODO this is a minimal implementation of the functionality we need to get</span>
+<span class="c1"># varying-rates-of-things-along the genome into msprime. It&#39;s deliberately</span>
+<span class="c1"># lightweight, and unencumbered by any backing classes from the low-level</span>
+<span class="c1"># model. The intention would be to add a bunch of useful functionality here</span>
+<span class="c1"># using numpy APIs.</span>
+<div class="viewcode-block" id="RateMap"><a class="viewcode-back" href="../../utilities.html#msprime.RateMap">[docs]</a><span class="k">class</span> <span class="nc">RateMap</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class mapping a numeric value to a set of adjacent intervals along the</span>
+<span class="sd">    genome.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">rate</span><span class="p">,</span> <span class="n">map_start</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="c1"># We take copies to make sure there are no unintended consequences</span>
+        <span class="c1"># later when a user modifies the arrays in this map.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rate</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">map_start</span> <span class="o">=</span> <span class="n">map_start</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rate</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">size</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Must have at least two positions&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Rate array must have one less entry than the position array.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;First position must be zero&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Position values must be in increasing order&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rate</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Rates must be non-negative&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cumulative</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">rate</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rate</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">uniform</span><span class="p">(</span><span class="n">sequence_length</span><span class="p">,</span> <span class="n">rate</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">RateMap</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">sequence_length</span><span class="p">],</span> <span class="p">[</span><span class="n">rate</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;position&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="s2">&quot;rate&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">rate</span><span class="p">}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">sequence_length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">total_mass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cumulative</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rate</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mean_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the weighted mean across all windows of the entire map.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">window_sizes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="n">window_sizes</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">sequence_length</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">map_start</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rate</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span>
+
+<div class="viewcode-block" id="RateMap.slice"><a class="viewcode-back" href="../../utilities.html#msprime.RateMap.slice">[docs]</a>    <span class="k">def</span> <span class="nf">slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">trim</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>  <span class="c1"># noqa: A003</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a subset of this rate map between the specified end</span>
+<span class="sd">        points. If start is None, it defaults to 0. If end is None, it defaults</span>
+<span class="sd">        to the end of the map. If trim is True, remove the flanking</span>
+<span class="sd">        zero rate regions such that the sequence length of the</span>
+<span class="sd">        new rate map is end - start.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">end</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">start</span> <span class="o">&lt;</span> <span class="mi">0</span>
+            <span class="ow">or</span> <span class="n">end</span> <span class="o">&lt;</span> <span class="mi">0</span>
+            <span class="ow">or</span> <span class="n">start</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="ow">or</span> <span class="n">end</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="ow">or</span> <span class="n">start</span> <span class="o">&gt;</span> <span class="n">end</span>
+        <span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid subset: start=</span><span class="si">{</span><span class="n">start</span><span class="si">}</span><span class="s2">, end=</span><span class="si">{</span><span class="n">end</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">start</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">side</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                <span class="n">i</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">end</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="n">i</span><span class="p">:],</span> <span class="n">end</span><span class="p">,</span> <span class="n">side</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">end</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]:</span>
+                <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rate</span><span class="p">[</span><span class="n">i</span> <span class="p">:</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">start</span>
+        <span class="n">position</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">end</span>
+        <span class="n">map_start</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">if</span> <span class="n">trim</span><span class="p">:</span>
+            <span class="n">position</span> <span class="o">-=</span> <span class="n">start</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Prepend or extend zero-rate region at start of map.</span>
+            <span class="k">if</span> <span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">map_start</span> <span class="o">=</span> <span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># TODO: is this what we want here?</span>
+                <span class="k">if</span> <span class="n">rate</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">position</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                    <span class="n">rate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">rate</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="c1"># Append or extend zero-rate region at end of map.</span>
+            <span class="k">if</span> <span class="n">position</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">rate</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">position</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">position</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="n">rate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rate</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">rate</span><span class="p">,</span> <span class="n">map_start</span><span class="o">=</span><span class="n">map_start</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Use slice syntax for obtaining a rate map subset. E.g.</span>
+<span class="sd">            &gt;&gt;&gt; rate_map_4m_to_5m = rate_map[4e6:5e6]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">slice</span><span class="p">)</span> <span class="ow">or</span> <span class="n">key</span><span class="o">.</span><span class="n">step</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Only interval slicing is supported&quot;</span><span class="p">)</span>
+        <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">key</span><span class="o">.</span><span class="n">stop</span>
+        <span class="k">if</span> <span class="n">start</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">start</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sequence_length</span>
+        <span class="k">if</span> <span class="n">end</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">end</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">end</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sequence_length</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">end</span><span class="p">,</span> <span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+<span class="c1"># The RecombinationMap class is deprecated since 1.0. We maintain the</span>
+<span class="c1"># functionality where it is possible to do so.</span>
+
+<span class="c1"># TODO update the documentation to make it clear that this is a legacy</span>
+<span class="c1"># interface and is deprecated.</span>
+
+
+<div class="viewcode-block" id="RecombinationMap"><a class="viewcode-back" href="../../utilities.html#msprime.RecombinationMap">[docs]</a><span class="k">class</span> <span class="nc">RecombinationMap</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A RecombinationMap represents the changing rates of recombination</span>
+<span class="sd">    along a chromosome. This is defined via two lists of numbers:</span>
+<span class="sd">    ``positions`` and ``rates``, which must be of the same length.</span>
+<span class="sd">    Given an index j in these lists, the rate of recombination</span>
+<span class="sd">    per base per generation is ``rates[j]`` over the interval</span>
+<span class="sd">    ``positions[j]`` to ``positions[j + 1]``. Consequently, the first</span>
+<span class="sd">    position must be zero, and by convention the last rate value</span>
+<span class="sd">    is also required to be zero (although it is not used).</span>
+
+<span class="sd">    .. warning::</span>
+<span class="sd">        The ``num_loci`` parameter is deprecated.</span>
+
+<span class="sd">    :param list positions: The positions (in bases) denoting the</span>
+<span class="sd">        distinct intervals where recombination rates change. These can</span>
+<span class="sd">        be floating point values.</span>
+<span class="sd">    :param list rates: The list of rates corresponding to the supplied</span>
+<span class="sd">        ``positions``. Recombination rates are specified per base,</span>
+<span class="sd">        per generation.</span>
+<span class="sd">    :param int num_loci: **This parameter is deprecated**.</span>
+<span class="sd">        The maximum number of non-recombining loci</span>
+<span class="sd">        in the underlying simulation. By default this is set to</span>
+<span class="sd">        the largest possible value, allowing the maximum resolution</span>
+<span class="sd">        in the recombination process. However, for a finite sites</span>
+<span class="sd">        model this can be set to smaller values.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">rates</span><span class="p">,</span> <span class="n">num_loci</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">map_start</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">num_loci</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">num_loci</span> <span class="o">==</span> <span class="n">positions</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;num_loci is no longer supported and should not be used.&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;num_loci does not match sequence length. &quot;</span>
+                    <span class="s2">&quot;To set a discrete number of recombination sites, &quot;</span>
+                    <span class="s2">&quot;scale positions to span the desired number of loci &quot;</span>
+                    <span class="s2">&quot;and set discrete=True&quot;</span>
+                <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">map</span> <span class="o">=</span> <span class="n">RateMap</span><span class="p">(</span><span class="n">positions</span><span class="p">,</span> <span class="n">rates</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">map_start</span> <span class="o">=</span> <span class="n">map_start</span>
+
+<div class="viewcode-block" id="RecombinationMap.uniform_map"><a class="viewcode-back" href="../../utilities.html#msprime.RecombinationMap.uniform_map">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">uniform_map</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">rate</span><span class="p">,</span> <span class="n">num_loci</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a :class:`.RecombinationMap` instance in which the recombination</span>
+<span class="sd">        rate is constant over a chromosome of the specified length.</span>
+<span class="sd">        The legacy ``num_loci`` option is no longer supported and should not be used.</span>
+
+<span class="sd">        :param float length: The length of the chromosome.</span>
+<span class="sd">        :param float rate: The rate of recombination per unit of sequence length</span>
+<span class="sd">            along this chromosome.</span>
+<span class="sd">        :param int num_loci: This parameter is no longer supported.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">length</span><span class="p">],</span> <span class="p">[</span><span class="n">rate</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">num_loci</span><span class="o">=</span><span class="n">num_loci</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RecombinationMap.read_hapmap"><a class="viewcode-back" href="../../utilities.html#msprime.RecombinationMap.read_hapmap">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">read_hapmap</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parses the specified file in HapMap format.</span>
+
+<span class="sd">        .. warning::</span>
+<span class="sd">            This method is deprecated, use the module-level</span>
+<span class="sd">            :func:`read_hapmap` function instead.</span>
+
+<span class="sd">        :param str filename: The name of the file to be parsed. This may be</span>
+<span class="sd">            in plain text or gzipped plain text.</span>
+<span class="sd">        :return: A RecombinationMap object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;RecombinationMap.read_hapmap() is deprecated. &quot;</span>
+            <span class="s2">&quot;Use msprime.read_hapmap() instead.&quot;</span><span class="p">,</span>
+            <span class="ne">FutureWarning</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">rate_map</span> <span class="o">=</span> <span class="n">read_hapmap</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">rate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rate_map</span><span class="o">.</span><span class="n">rate</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">rate_map</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="n">rate</span><span class="p">,</span> <span class="n">map_start</span><span class="o">=</span><span class="n">rate_map</span><span class="o">.</span><span class="n">map_start</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mean_recombination_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the weighted mean recombination rate</span>
+<span class="sd">        across all windows of the entire recombination map.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">mean_rate</span>
+
+<div class="viewcode-block" id="RecombinationMap.get_total_recombination_rate"><a class="viewcode-back" href="../../utilities.html#msprime.RecombinationMap.get_total_recombination_rate">[docs]</a>    <span class="k">def</span> <span class="nf">get_total_recombination_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the effective recombination rate for this genetic map.</span>
+<span class="sd">        This is the weighted mean of the rates across all intervals.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">cumulative</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
+
+    <span class="k">def</span> <span class="nf">physical_to_genetic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">cumulative</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">genetic_to_physical</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genetic_x</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">cumulative</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># If we have a zero recombination rate throughout then everything</span>
+            <span class="c1"># except L maps to 0.</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sequence_length</span><span class="p">()</span> <span class="k">if</span> <span class="n">genetic_x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">genetic_x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">cumulative</span><span class="p">,</span> <span class="n">genetic_x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+            <span class="o">+</span> <span class="p">(</span><span class="n">genetic_x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">cumulative</span><span class="p">[</span><span class="n">index</span><span class="p">])</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">rate</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">y</span>
+
+    <span class="k">def</span> <span class="nf">physical_to_discrete_genetic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">physical_x</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Discrete genetic space is no longer supported&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_per_locus_recombination_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Genetic loci are no longer supported&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_num_loci</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;num_loci is no longer supported&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">size</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">get_positions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_rates</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">rate</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">get_sequence_length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">sequence_length</span>
+
+    <span class="k">def</span> <span class="nf">get_length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Deprecated: use get_sequence_length() instead</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sequence_length</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">asdict</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="read_hapmap"><a class="viewcode-back" href="../../utilities.html#msprime.read_hapmap">[docs]</a><span class="k">def</span> <span class="nf">read_hapmap</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="c1"># Black barfs with an INTERNAL_ERROR trying to reformat this docstring,</span>
+    <span class="c1"># so we explicitly disable reformatting here.</span>
+    <span class="c1"># fmt: off</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parses the specified file in HapMap format. These files must be</span>
+<span class="sd">    white-space-delimited, and contain a single header line (which is</span>
+<span class="sd">    ignored), and then each subsequent line contains the starting position</span>
+<span class="sd">    and recombination rate for the segment from that position (inclusive)</span>
+<span class="sd">    to the starting position on the next line (exclusive). Starting</span>
+<span class="sd">    positions of each segment are given in units of bases, and</span>
+<span class="sd">    recombination rates in centimorgans/Megabase. The first column in this</span>
+<span class="sd">    file is ignored, as are additional columns after the third (Position is</span>
+<span class="sd">    assumed to be the second column, and Rate is assumed to be the third).</span>
+<span class="sd">    If the first starting position is not equal to zero, then a</span>
+<span class="sd">    zero-recombination region is inserted at the start of the chromosome.</span>
+
+<span class="sd">    A sample of this format is as follows::</span>
+
+<span class="sd">        Chromosome	Position(bp)	Rate(cM/Mb)	Map(cM)</span>
+<span class="sd">        chr1	55550	        2.981822	0.000000</span>
+<span class="sd">        chr1	82571	        2.082414	0.080572</span>
+<span class="sd">        chr1	88169	        2.081358	0.092229</span>
+<span class="sd">        chr1	254996	        3.354927	0.439456</span>
+<span class="sd">        chr1	564598	        2.887498	1.478148</span>
+<span class="sd">        ...</span>
+<span class="sd">        chr1	182973428	2.512769	122.832331</span>
+<span class="sd">        chr1	183630013	0.000000	124.482178</span>
+
+<span class="sd">    :param str filename: The name of the file to be parsed. This may be</span>
+<span class="sd">        in plain text or gzipped plain text.</span>
+<span class="sd">    :return: A RateMap object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># fmt: on</span>
+    <span class="n">hapmap</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">position</span> <span class="o">=</span> <span class="n">hapmap</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># Rate is expressed in centimorgans per megabase, which</span>
+    <span class="c1"># we convert to per-base rates</span>
+    <span class="n">rate</span> <span class="o">=</span> <span class="mf">1e-8</span> <span class="o">*</span> <span class="n">hapmap</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">map_start</span> <span class="o">=</span> <span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">map_start</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">position</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">rate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">rate</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">rate</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The last rate provided in the recombination map must be zero&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">RateMap</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">rate</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">map_start</span><span class="o">=</span><span class="n">map_start</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2015-2020, Tskit Developers
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

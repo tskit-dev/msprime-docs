@@ -1,0 +1,620 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Utilities &mdash; msprime 0.1.dev1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="_static/thebelab.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/thebelab-helper.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Command line interface" href="cli.html" />
+    <link rel="prev" title="API quick reference" href="quickref.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> msprime
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ancestry.html">Ancestry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mutations.html">Mutations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demography.html">Demography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="likelihoods.html">Likelihoods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickref.html">API quick reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Utilities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#rate-maps">Rate maps</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#deprecated-api">Deprecated API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#logging">Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Developer documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CITATION.html">Citing msprime</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">PORTING IN PROGRESS: Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">PORTING IN PROGRESS: API</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">msprime</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Utilities</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/utilities.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="utilities">
+<span id="sec-utilities"></span><h1>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="rate-maps">
+<h2>Rate maps<a class="headerlink" href="#rate-maps" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>Add some high-level content here.</p>
+</div>
+<dl class="py class">
+<dt id="msprime.RateMap">
+<em class="property">class </em><code class="sig-prename descclassname">msprime.</code><code class="sig-name descname">RateMap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">position</span></em>, <em class="sig-param"><span class="n">rate</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cumulative_rate</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">start_position</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end_position</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/msprime/intervals.html#RateMap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#msprime.RateMap" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class mapping a numeric value to a set of adjacent intervals along the
+genome.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>position</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – A list of <span class="math notranslate nohighlight">\(n\)</span> positions, starting at 0, and ending in the
+sequence length over which the RateMap will apply.</p></li>
+<li><p><strong>rate</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – A list of <span class="math notranslate nohighlight">\(n-1\)</span> positive rates that apply between each
+position.</p></li>
+<li><p><strong>cumulative_rate</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – A alternative method to specify rates between each
+position: a list of <span class="math notranslate nohighlight">\(n\)</span> increasing values starting at 0 providing the
+cumulative rate.</p></li>
+<li><p><strong>start_position</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – When returning a mean_rate over the genome, ignore the
+part of the map from zero up to <code class="docutils literal notranslate"><span class="pre">start_position</span></code>, as long as the rate is 0 in
+that region. If <code class="docutils literal notranslate"><span class="pre">None</span></code> (default), the <code class="docutils literal notranslate"><span class="pre">start_position</span></code> is 0.</p></li>
+<li><p><strong>end_position</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – When returning a mean_rate over the genome, ignore the
+part of the map from <code class="docutils literal notranslate"><span class="pre">end_position</span></code> onwards, as long as the rate is 0 in that
+region. If <code class="docutils literal notranslate"><span class="pre">None</span></code> (default), the <code class="docutils literal notranslate"><span class="pre">end_position</span></code> is the end of the map.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="msprime.RateMap.at">
+<code class="sig-name descname">at</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/msprime/intervals.html#RateMap.at"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#msprime.RateMap.at" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the rate at a list of specified positions along the map. Any positions
+beyond the end of the map will return the final rate value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.19)"><em>numpy.ndarray</em></a>) – The positions for which to return values.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An array of rates, the same length as <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.19)">numpy.ndarray</a>(dtype=np.float64)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="msprime.RateMap.cumulative_at">
+<code class="sig-name descname">cumulative_at</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/msprime/intervals.html#RateMap.cumulative_at"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#msprime.RateMap.cumulative_at" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the cumulative rate at a list of specified positions along the map.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.19)"><em>numpy.ndarray</em></a>) – The positions for which to return values.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An array of cumulative rates, the same length as <code class="docutils literal notranslate"><span class="pre">x</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.19)">numpy.ndarray</a>(dtype=np.float64)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="msprime.RateMap.mean_rate">
+<em class="property">property </em><code class="sig-name descname">mean_rate</code><a class="headerlink" href="#msprime.RateMap.mean_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>The mean rate over this map, from map.start_position to map.end_position.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="msprime.RateMap.slice">
+<code class="sig-name descname">slice</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">start</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">trim</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/msprime/intervals.html#RateMap.slice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#msprime.RateMap.slice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a subset of this rate map between the specified end points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The start of the region to keep. If <code class="docutils literal notranslate"><span class="pre">None</span></code>, it defaults to
+0.</p></li>
+<li><p><strong>end</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The end of the region to keep. If end is <code class="docutils literal notranslate"><span class="pre">None</span></code>, it defaults
+to the end of the map.</p></li>
+<li><p><strong>trim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If True, remove the flanking regions such that the
+sequence length of the new rate map is <code class="docutils literal notranslate"><span class="pre">end</span></code> - <code class="docutils literal notranslate"><span class="pre">start</span></code>. If <code class="docutils literal notranslate"><span class="pre">False</span></code>
+(default), do not change the coordinate system, but instead replace each
+flanking region with 0, and set the <code class="docutils literal notranslate"><span class="pre">start_position</span></code> and <code class="docutils literal notranslate"><span class="pre">end_position</span></code>
+of the returned map to <code class="docutils literal notranslate"><span class="pre">start</span></code> and <code class="docutils literal notranslate"><span class="pre">end</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A new RateMap instance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#msprime.RateMap" title="msprime.RateMap">RateMap</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="msprime.RateMap.total_mass">
+<em class="property">property </em><code class="sig-name descname">total_mass</code><a class="headerlink" href="#msprime.RateMap.total_mass" title="Permalink to this definition">¶</a></dt>
+<dd><p>The cumulative total over the entire map</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="msprime.read_hapmap">
+<code class="sig-prename descclassname">msprime.</code><code class="sig-name descname">read_hapmap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">sequence_length</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">has_header</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">bp_column</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">cM_column</span><span class="o">=</span><span class="default_value">3</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/msprime/intervals.html#read_hapmap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#msprime.read_hapmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses the specified file in HapMap format. These files must be
+white-space-delimited, and by default are assumed to contain a single header line
+(which is ignored). Each subsequent line then contains a physical position (in base
+pairs) and a corresponding genetic map position (in centiMorgans). The rate between
+the current physical position (inclusive) and the physical position on the next line
+(exclusive) is taken as constant. Only these two values are used from each line:
+by default they are assumed to occupy the second and fourth columns of the file
+respectively, as exemplified in the following sample of the format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Chromosome</span>      <span class="n">Position</span><span class="p">(</span><span class="n">bp</span><span class="p">)</span>  <span class="n">Rate</span><span class="p">(</span><span class="n">cM</span><span class="o">/</span><span class="n">Mb</span><span class="p">)</span>  <span class="n">Map</span><span class="p">(</span><span class="n">cM</span><span class="p">)</span>
+<span class="n">chr10</span>       <span class="mi">48232</span>         <span class="mf">0.1614</span>       <span class="mf">0.002664</span>
+<span class="n">chr10</span>       <span class="mi">48486</span>         <span class="mf">0.1589</span>       <span class="mf">0.002705</span>
+<span class="n">chr10</span>       <span class="mi">50009</span>         <span class="mf">0.159</span>        <span class="mf">0.002947</span>
+<span class="n">chr10</span>       <span class="mi">52147</span>         <span class="mf">0.1574</span>       <span class="mf">0.003287</span>
+<span class="o">...</span>
+<span class="n">chr10</span>       <span class="mi">133762002</span>     <span class="mf">3.358</span>        <span class="mf">181.129345</span>
+<span class="n">chr10</span>       <span class="mi">133766368</span>     <span class="mf">0.000</span>        <span class="mf">181.144008</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Positions in a RateMap are zero-based, meaning that rate values in the returned
+RateMap object are defined from position 0 onwards. Thus in the example above,
+a rate of 0.002664/48232 cM/bp (i.e. 0.0552 cM/Mb) is assumed to apply from
+position 0 (inclusive) to 48232 (exclusive). If the map positions use a
+one-based, system, with the first position being 1 rather than 0, this may
+result in an miniscule difference in the first rate value calculated.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the file to be parsed. This may be
+in plain text or gzipped plain text.</p></li>
+<li><p><strong>sequence_length</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The total length of the map. If <code class="docutils literal notranslate"><span class="pre">None</span></code>, then assume
+it is the final physical position in the file. Otherwise pad the map with a zero
+rate region between the final position in the file and the value specified here.</p></li>
+<li><p><strong>has_header</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – If True, assume the file has a header row and ignore the
+first line of the file.</p></li>
+<li><p><strong>bp_column</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The zero-based index of the column in the file specifying
+the physical position in base pairs (default: 1, i.e. the second column)</p></li>
+<li><p><strong>cM_column</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The zero-based index of the column in the file specifying
+the genetic map position in centiMorgans (default: 3, i.e. the fourth column)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A RateMap object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="section" id="deprecated-api">
+<h3>Deprecated API<a class="headerlink" href="#deprecated-api" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt id="msprime.RecombinationMap">
+<em class="property">class </em><code class="sig-prename descclassname">msprime.</code><code class="sig-name descname">RecombinationMap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">positions</span></em>, <em class="sig-param"><span class="n">rates</span></em>, <em class="sig-param"><span class="n">num_loci</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/msprime/intervals.html#RecombinationMap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#msprime.RecombinationMap" title="Permalink to this definition">¶</a></dt>
+<dd><p>A RecombinationMap represents the changing rates of recombination
+along a chromosome. This is defined via two lists of numbers:
+<code class="docutils literal notranslate"><span class="pre">positions</span></code> and <code class="docutils literal notranslate"><span class="pre">rates</span></code>, which must be of the same length.
+Given an index j in these lists, the rate of recombination
+per base per generation is <code class="docutils literal notranslate"><span class="pre">rates[j]</span></code> over the interval
+<code class="docutils literal notranslate"><span class="pre">positions[j]</span></code> to <code class="docutils literal notranslate"><span class="pre">positions[j</span> <span class="pre">+</span> <span class="pre">1]</span></code>. Consequently, the first
+position must be zero, and by convention the last rate value
+is also required to be zero (although it is not used).</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">num_loci</span></code> parameter is deprecated.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>positions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The positions (in bases) denoting the
+distinct intervals where recombination rates change. These can
+be floating point values.</p></li>
+<li><p><strong>rates</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The list of rates corresponding to the supplied
+<code class="docutils literal notranslate"><span class="pre">positions</span></code>. Recombination rates are specified per base,
+per generation.</p></li>
+<li><p><strong>num_loci</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – <strong>This parameter is deprecated</strong>.
+The maximum number of non-recombining loci
+in the underlying simulation. By default this is set to
+the largest possible value, allowing the maximum resolution
+in the recombination process. However, for a finite sites
+model this can be set to smaller values.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – A name to use for this map, and stored in the <code class="docutils literal notranslate"><span class="pre">.name</span></code>
+attribute. This will only be used if the map is written out to a file</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="msprime.RecombinationMap.at">
+<code class="sig-name descname">at</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/msprime/intervals.html#RecombinationMap.at"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#msprime.RecombinationMap.at" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the recombination rates at a set of positions along the chromosome</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.19)"><em>numpy.ndarray</em></a>) – The physical positions along the chromosome.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An array of rates, the same length as <code class="docutils literal notranslate"><span class="pre">x</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.19)">numpy.ndarray</a>(dtype=np.float64)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="msprime.RecombinationMap.get_total_recombination_rate">
+<code class="sig-name descname">get_total_recombination_rate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/msprime/intervals.html#RecombinationMap.get_total_recombination_rate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#msprime.RecombinationMap.get_total_recombination_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the effective recombination rate for this genetic map.
+This is the weighted mean of the rates across all intervals.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="msprime.RecombinationMap.mean_recombination_rate">
+<em class="property">property </em><code class="sig-name descname">mean_recombination_rate</code><a class="headerlink" href="#msprime.RecombinationMap.mean_recombination_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the weighted mean recombination rate
+across all windows of the entire recombination map.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="msprime.RecombinationMap.physical_to_genetic">
+<code class="sig-name descname">physical_to_genetic</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/msprime/intervals.html#RecombinationMap.physical_to_genetic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#msprime.RecombinationMap.physical_to_genetic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert physical positions into genetic coordinates</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.19)"><em>numpy.ndarray</em></a>) – The physical positions along the chromosome.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An array of genetic positions, the same length as <code class="docutils literal notranslate"><span class="pre">x</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.19)">numpy.ndarray</a>(dtype=np.float64)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="msprime.RecombinationMap.read_hapmap">
+<em class="property">classmethod </em><code class="sig-name descname">read_hapmap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">sequence_length</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/msprime/intervals.html#RecombinationMap.read_hapmap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#msprime.RecombinationMap.read_hapmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses the specified file in HapMap format. These files must be
+white-space-delimited, and contain a single header line (which is
+ignored), and then each subsequent line contains the starting position
+and recombination rate for the segment from that position (inclusive)
+to the starting position on the next line (exclusive). Starting
+positions of each segment are given in units of bases, and
+recombination rates in centimorgans/Megabase. The first column in this
+file is checked , as are additional columns after the third (Position is
+assumed to be the second column, and Rate is assumed to be the third).
+If the first starting position is not equal to zero, then a
+zero-recombination region is inserted at the start of the chromosome.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This method is deprecated, use the module-level
+<a class="reference internal" href="#msprime.read_hapmap" title="msprime.read_hapmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">read_hapmap()</span></code></a> function instead, which uses the genetic position
+in centiMorgans rather than the rate column.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the file to be parsed. This may be
+in plain text or gzipped plain text. It may also be a file object.</p></li>
+<li><p><strong>sequence_length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The .</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A RecombinationMap object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="msprime.RecombinationMap.uniform_map">
+<em class="property">classmethod </em><code class="sig-name descname">uniform_map</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">length</span></em>, <em class="sig-param"><span class="n">rate</span></em>, <em class="sig-param"><span class="n">num_loci</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/msprime/intervals.html#RecombinationMap.uniform_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#msprime.RecombinationMap.uniform_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a <a class="reference internal" href="#msprime.RecombinationMap" title="msprime.RecombinationMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">RecombinationMap</span></code></a> instance in which the recombination
+rate is constant over a chromosome of the specified length.
+The legacy <code class="docutils literal notranslate"><span class="pre">num_loci</span></code> option is no longer supported and should not be used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The length of the chromosome.</p></li>
+<li><p><strong>rate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The rate of recombination per unit of sequence length
+along this chromosome.</p></li>
+<li><p><strong>num_loci</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – This parameter is no longer supported.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="msprime.RecombinationMap.write_hapmap">
+<code class="sig-name descname">write_hapmap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/msprime/intervals.html#RecombinationMap.write_hapmap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#msprime.RecombinationMap.write_hapmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write out the recombination map in a format with genetic distances in cM,
+so that it can be read in by the non-deprecated read-hapmap function.
+Omit the rate up to the start_position and after the end_position.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="logging">
+<h2>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h2>
+<p>Msprime uses the Python <a class="reference external" href="https://docs.python.org/3/library/logging.html#module-logging" title="(in Python v3.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">logging</span></code></a> infrastructure to help debugging
+complex simulations. Messages at the INFO level are high-level information
+about the state of the current simulation, such as switches in simulation
+model, etc. While it is straightforward to set up logging messages using
+the built-in Python methods, the <a class="reference external" href="https://daiquiri.readthedocs.io/en/latest/">daiquiri</a> is a bit more convenient.
+For example,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">daiquiri</span>
+
+<span class="kn">import</span> <span class="nn">msprime</span>
+
+
+<span class="k">def</span> <span class="nf">logging_info_example</span><span class="p">():</span>
+    <span class="n">daiquiri</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;INFO&quot;</span><span class="p">)</span>
+    <span class="n">msprime</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">Ne</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;dtwf&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;hudson&quot;</span><span class="p">)])</span>
+</pre></div>
+</div>
+<p>Running this code we would get output something like the following:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>2020-06-24 16:02:20,983 [11188] INFO     msprime.ancestry: Running model {&#39;name&#39;: &#39;dtwf&#39;} until max time: 100.000000
+2020-06-24 16:02:20,984 [11188] INFO     msprime.ancestry: Running model {&#39;name&#39;: &#39;hudson&#39;} until max time: inf
+2020-06-24 16:02:20,984 [11188] INFO     msprime.ancestry: Completed at time=1449.4 nodes=19 edges=18
+</pre></div>
+</div>
+<p>When running larger simulations and trying to figure out when
+they might finish, it can be helpful to use the DEBUG logging output.
+For example,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">daiquiri</span>
+
+<span class="kn">import</span> <span class="nn">msprime</span>
+
+
+<span class="k">def</span> <span class="nf">logging_debug_example</span><span class="p">():</span>
+    <span class="n">daiquiri</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;DEBUG&quot;</span><span class="p">)</span>
+    <span class="n">msprime</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span>
+        <span class="mi">10</span> <span class="o">**</span> <span class="mi">5</span><span class="p">,</span> <span class="n">Ne</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">recombination_rate</span><span class="o">=</span><span class="mf">2e-8</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">1e6</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">32</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>which gives us:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>2020-06-24 16:11:33,373 [11729] INFO     msprime.ancestry: Running model {&#39;name&#39;: &#39;hudson&#39;} until max time: inf
+2020-06-24 16:11:33,396 [11729] DEBUG    msprime.ancestry: time=0.0444792 ancestors=90162
+2020-06-24 16:11:33,418 [11729] DEBUG    msprime.ancestry: time=0.0979881 ancestors=80314
+2020-06-24 16:11:33,438 [11729] DEBUG    msprime.ancestry: time=0.167461 ancestors=70518
+2020-06-24 16:11:33,466 [11729] DEBUG    msprime.ancestry: time=0.258912 ancestors=60734
+2020-06-24 16:11:33,501 [11729] DEBUG    msprime.ancestry: time=0.386571 ancestors=51002
+2020-06-24 16:11:33,542 [11729] DEBUG    msprime.ancestry: time=0.575475 ancestors=41292
+2020-06-24 16:11:33,596 [11729] DEBUG    msprime.ancestry: time=0.872121 ancestors=31704
+2020-06-24 16:11:33,668 [11729] DEBUG    msprime.ancestry: time=1.42071 ancestors=22228
+2020-06-24 16:11:33,763 [11729] DEBUG    msprime.ancestry: time=2.75437 ancestors=13042
+2020-06-24 16:11:33,906 [11729] DEBUG    msprime.ancestry: time=8.80469 ancestors=4752
+2020-06-24 16:11:34,018 [11729] DEBUG    msprime.ancestry: time=277.713 ancestors=416
+2020-06-24 16:11:34,034 [11729] DEBUG    msprime.ancestry: time=6352.95 ancestors=142
+2020-06-24 16:11:34,042 [11729] DEBUG    msprime.ancestry: time=20955.5 ancestors=104
+2020-06-24 16:11:34,050 [11729] DEBUG    msprime.ancestry: time=40321.8 ancestors=83
+2020-06-24 16:11:34,056 [11729] DEBUG    msprime.ancestry: time=72735.7 ancestors=74
+2020-06-24 16:11:34,059 [11729] INFO     msprime.ancestry: Completed at time=235063 nodes=207110 edges=233940
+</pre></div>
+</div>
+<p>In this example we run a reasonably large simulation and turn on
+the DEBUG output. This will then periodically (every 10,000 simulation
+events) print out the current time in the simulation, and the
+number of extant ancestral lineages.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The format of these logging messages is not fixed and may change
+arbitrarily in the future. If you need to obtain the information within
+them, please open an issue on GitHub so that we can provide a documented
+API for this.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cli.html" class="btn btn-neutral float-right" title="Command line interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="quickref.html" class="btn btn-neutral float-left" title="API quick reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2015-2020, Tskit Developers
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,366 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Computing likelihoods &mdash; msprime 0.1.dev1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="_static/thebelab.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/thebelab-helper.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Utilities" href="utilities.html" />
+    <link rel="prev" title="Simulating mutations" href="mutations.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> msprime
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickref.html">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demography.html">Specifying Demography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ancestry.html">Simulating ancestry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mutations.html">Simulating mutations</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Computing likelihoods</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#api">API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Developer documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CITATION.html">Citing msprime</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">PORTING IN PROGRESS: Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">PORTING IN PROGRESS: API</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">msprime</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Computing likelihoods</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/likelihoods.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="computing-likelihoods">
+<span id="sec-likelihood"></span><h1>Computing likelihoods<a class="headerlink" href="#computing-likelihoods" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>Review the content in this page and decide if the structure is
+correct. Arguably this could be moved to the “utilities” page, but
+this does seem like a fundamental feature of msprime like simulating
+ancestry and mutations and not a “utility”.</p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">msprime</span></code> provides the capability to evaluate the sampling probabilities:
+that of a stored tree sequence for a given diploid effective population size
+<span class="math notranslate nohighlight">\(N_e\)</span> and per-link, per-generation recombination probability <span class="math notranslate nohighlight">\(r\)</span>
+under the standard ancestral recombination graph; and that of a pattern of
+mutations given a tree sequence and per-site, per-generation mutation
+probability <span class="math notranslate nohighlight">\(\mu\)</span> under the infinite sites model.</p>
+<div class="section" id="api">
+<h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="msprime.log_arg_likelihood">
+<code class="sig-prename descclassname">msprime.</code><code class="sig-name descname">log_arg_likelihood</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ts</span></em>, <em class="sig-param"><span class="n">recombination_rate</span></em>, <em class="sig-param"><span class="n">Ne</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/msprime/likelihood.html#log_arg_likelihood"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#msprime.log_arg_likelihood" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the log probability of the stored tree sequence under the Hudson ARG.
+An exact expression for this probability is given in equation (1) of
+<a class="reference external" href="https://www.genetics.org/content/156/3/1393">Kuhner et al. (2000)</a>.</p>
+<p>We assume branch lengths stored in generations, resulting in a coalescence
+rate of <span class="math notranslate nohighlight">\(1 / (2 N_e)\)</span> per pair of lineages.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The stored tree sequence must store the full realisation of the ARG,
+including all recombination events and all common ancestor events,
+regardless of whether the recombinations cause a change in the ancestral
+tree or whether the common ancestor events cause coalescence of ancestral
+material. See <a class="reference internal" href="tutorial.html#sec-tutorial-record-full-arg"><span class="std std-ref">Full arg</span></a> for details of this
+data structure, and how to generate them using <code class="docutils literal notranslate"><span class="pre">msprime</span></code>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ts</strong> (<a class="reference external" href="https://tskit.readthedocs.io/en/stable/python-api.html#tskit.TreeSequence" title="(in tskit v0.3)"><em>tskit.TreeSequence</em></a>) – The tree sequence object.</p></li>
+<li><p><strong>recombination_rate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The per-link, per-generation recombination
+probability. Must be non-negative.</p></li>
+<li><p><strong>Ne</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The diploid effective population size.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The log probability of the tree sequence under the Hudson ancestral
+recombination graph model. If the recombination rate is zero and the tree
+sequence contains at least one recombination event, then returns
+<cite>-float(“inf”)</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="msprime.unnormalised_log_mutation_likelihood">
+<code class="sig-prename descclassname">msprime.</code><code class="sig-name descname">unnormalised_log_mutation_likelihood</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ts</span></em>, <em class="sig-param"><span class="n">mu</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/msprime/likelihood.html#unnormalised_log_mutation_likelihood"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#msprime.unnormalised_log_mutation_likelihood" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the unnormalised log probability of the stored pattern of mutations
+on the stored tree sequence, assuming infinite sites mutation. In particular,
+each stored site must only contain a single mutation. The omitted normalising
+constant depends on the pattern of mutations, but not on the tree sequence or
+the mutation rate.</p>
+<p>The function first computes the probability of the overall number of mutations
+<span class="math notranslate nohighlight">\(M\)</span> from the Poisson probability mass function</p>
+<div class="math notranslate nohighlight">
+\[e^{-T \mu / 2} \frac{(T \mu / 2)^M}{M!},\]</div>
+<p>where <span class="math notranslate nohighlight">\(T\)</span> is the total area of ancestral material in the tree sequence,
+stored in units of generations. Each mutation then contributes an individual factor
+of <span class="math notranslate nohighlight">\(l / T\)</span>, where <span class="math notranslate nohighlight">\(l\)</span> is the total branch length on which the mutation
+could have arisen while appearing on all of the required lineages, again stored
+in generations.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If the tree sequence contains unary nodes, then <span class="math notranslate nohighlight">\(l\)</span> could span more than
+one edge. In particular, we do not constrain mutations to take place on the edge
+directly above the node on which they have been recorded, but rather on any edge
+which would yield the same configuration of SNPs at the leaves of the tree
+sequence.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ts</strong> (<a class="reference external" href="https://tskit.readthedocs.io/en/stable/python-api.html#tskit.TreeSequence" title="(in tskit v0.3)"><em>tskit.TreeSequence</em></a>) – The tree sequence object with mutations.</p></li>
+<li><p><strong>mu</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The per-site, per-generation mutation probablity.
+Must be non-negative.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The unnormalised log probability of the observed SNPs given the tree
+sequence. If the mutation rate is set to zero and the tree sequence contains
+at least one mutation, then returns <cite>-float(“inf”)</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-todo admonition" id="id2">
+<p class="admonition-title">Todo</p>
+<p>Refactor this to use the jupyter execute and to follow
+similar conventions as the ancestry.rst page.</p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">msprime</span></code> can be used to evaluate the sampling probability of a tree sequence
+for a given effective population size and per-site, per-generation recombination
+rate, as well as the probability of a configuration of infinite sites mutations
+given a tree sequence and a per-site, per-generation mutation probability. In
+both cases, the tree sequence must conform to the <code class="docutils literal notranslate"><span class="pre">record_full_arg</span></code> option of
+the <a class="reference internal" href="ancestry.html#msprime.simulate" title="msprime.simulate"><code class="xref py py-func docutils literal notranslate"><span class="pre">simulate()</span></code></a> function. The following example illustrates the evaluation
+of these log likelihoods:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">likelihood_example</span><span class="p">():</span>
+    <span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span>
+        <span class="n">sample_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">recombination_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">mutation_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+        <span class="n">record_full_arg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">msprime</span><span class="o">.</span><span class="n">log_arg_likelihood</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">recombination_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">Ne</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">msprime</span><span class="o">.</span><span class="n">log_arg_likelihood</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">recombination_rate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">Ne</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">msprime</span><span class="o">.</span><span class="n">log_arg_likelihood</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">recombination_rate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">Ne</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">msprime</span><span class="o">.</span><span class="n">unnormalised_log_mutation_likelihood</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">msprime</span><span class="o">.</span><span class="n">unnormalised_log_mutation_likelihood</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mf">0.1</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">msprime</span><span class="o">.</span><span class="n">unnormalised_log_mutation_likelihood</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Running this code we get:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="mf">11.22279995534112</span>
+<span class="o">-</span><span class="mf">14.947399100839986</span>
+<span class="o">-</span><span class="mf">22.154011926066893</span>
+<span class="o">-</span><span class="n">inf</span>
+<span class="o">-</span><span class="mf">5.665181028073889</span>
+<span class="o">-</span><span class="mf">7.087195080578711</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="utilities.html" class="btn btn-neutral float-right" title="Utilities" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="mutations.html" class="btn btn-neutral float-left" title="Simulating mutations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2015-2020, Tskit Developers
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

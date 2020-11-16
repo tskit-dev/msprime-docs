@@ -1,0 +1,811 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>msprime.species_trees &mdash; msprime 0.1.dev1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/thebelab.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/thebelab-helper.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> msprime
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickref.html">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demography.html">Specifying Demography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ancestry.html">Simulating ancestry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mutations.html">Simulating mutations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../likelihoods.html">Computing likelihoods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../utilities.html">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html">Developer documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CITATION.html">Citing msprime</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">PORTING IN PROGRESS: Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">PORTING IN PROGRESS: API</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">msprime</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>msprime.species_trees</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for msprime.species_trees</h1><div class="highlight"><pre>
+<span></span><span class="c1">#</span>
+<span class="c1"># Copyright (C) 2020 University of Oxford</span>
+<span class="c1">#</span>
+<span class="c1"># This file is part of msprime.</span>
+<span class="c1">#</span>
+<span class="c1"># msprime is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># msprime is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with msprime.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c1">#</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Module responsible for parsing species trees.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">import</span> <span class="nn">newick</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">demography</span> <span class="k">as</span> <span class="n">demog</span>
+
+
+<div class="viewcode-block" id="parse_starbeast"><a class="viewcode-back" href="../../demography.html#msprime.parse_starbeast">[docs]</a><span class="k">def</span> <span class="nf">parse_starbeast</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">generation_time</span><span class="p">,</span> <span class="n">branch_length_units</span><span class="o">=</span><span class="s2">&quot;myr&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function parses a species tree produced by the program `TreeAnnotator</span>
+<span class="sd">    &lt;https://www.beast2.org/treeannotator&gt;`_</span>
+<span class="sd">    based on a posterior tree distribution generated with `StarBEAST</span>
+<span class="sd">    &lt;https://academic.oup.com/mbe/article/34/8/2101/3738283&gt;`_  and defines a</span>
+<span class="sd">    simulation model according to the species tree. Species trees produced by</span>
+<span class="sd">    TreeAnnotator are written in `Nexus</span>
+<span class="sd">    &lt;https://en.wikipedia.org/wiki/Nexus_file&gt;`_ format and are rooted,</span>
+<span class="sd">    bifurcating, and ultrametric. Branch lengths usually are in units of millions</span>
+<span class="sd">    of years, but the use of other units is permitted by StarBEAST (and thus</span>
+<span class="sd">    TreeAnnotator). This function allows branch length units of millions of years</span>
+<span class="sd">    or years. Leaves must be named and the tree must include information on</span>
+<span class="sd">    population sizes of leaf and ancestral species in the form of annotation with</span>
+<span class="sd">    the &quot;dmv&quot; tag, which is the case for trees written by TreeAnnotator based on</span>
+<span class="sd">    StarBEAST posterior tree distributions.</span>
+
+<span class="sd">    After reading the input tree, this function defines a</span>
+<span class="sd">    :class:`.PopulationConfiguration` instance for each terminal node in the tree,</span>
+<span class="sd">    corresponding to extant species. These population configurations store the</span>
+<span class="sd">    species&#39; name and population size, both according to information from the input</span>
+<span class="sd">    tree. Additionally, a :class:`.MassMigration` instance is defined for each</span>
+<span class="sd">    internal node, with the time of the mass migration set according to the age of</span>
+<span class="sd">    the node in the species tree. For each internal node, the left one of the two</span>
+<span class="sd">    descendant populations is arbitrarily selected as the destination in the mass</span>
+<span class="sd">    migration defined for that node. A :class:`.PopulationParametersChange`</span>
+<span class="sd">    instance is also added for each internal node to adjust the population</span>
+<span class="sd">    size of the destination population according to the information given in the</span>
+<span class="sd">    tree for the population size of the species that is ancestral to the node. Like</span>
+<span class="sd">    the mass migration event defined for the same node, the time of the population</span>
+<span class="sd">    parameter change is also set according to the age of the node.</span>
+
+<span class="sd">    :param str tree: The tree string in Nexus format, with named leaves, branch</span>
+<span class="sd">        lengths, and branch annotation. Typically, this string is the entire content</span>
+<span class="sd">        of a file written by TreeAnnotator.</span>
+<span class="sd">    :param float generation_time: The number of years per generation.</span>
+<span class="sd">    :param str branch_length_units: The units of time in which the species tree&#39;s</span>
+<span class="sd">        branch lengths are measured. Allowed branch length units are millions of</span>
+<span class="sd">        years, and years; these should be specified with the strings ``&quot;myr&quot;`` or</span>
+<span class="sd">        ``&quot;yr&quot;``, respectively. This defaults to ``&quot;myr&quot;``.</span>
+<span class="sd">    :return: A tuple of two lists of which the first contains</span>
+<span class="sd">        :class:`.PopulationConfiguration` instances and the second contains</span>
+<span class="sd">        :class:`.MassMigration` and :class:`.PopulationParametersChange` instances.</span>
+<span class="sd">        The population configurations specify the size of each population according</span>
+<span class="sd">        to the information from the input species tree and the species name</span>
+<span class="sd">        corresponding to each population. Species names are stored as metadata in</span>
+<span class="sd">        each :class:`.PopulationConfiguration` instance, with the metadata tag</span>
+<span class="sd">        &quot;species_name&quot;. Sampling configurations and growth rates are not specified</span>
+<span class="sd">        in the population configurations. The list of population configurations is</span>
+<span class="sd">        ordered according to the order of the corresponding extant species in a</span>
+<span class="sd">        `post-order tree traversal</span>
+<span class="sd">        &lt;https://en.wikipedia.org/wiki/Tree_traversal#Post-order_(LRN)&gt;`_.</span>
+<span class="sd">        The list of mass migration events and population parameter changes is</span>
+<span class="sd">        ordered by the time of the events, from young to old events.</span>
+<span class="sd">    :rtype: (list, list)</span>
+<span class="sd">    :warning: This function does not modify migration matrices. When the population</span>
+<span class="sd">        configurations and mass migration events returned by this function are used</span>
+<span class="sd">        to simulate with the :func:`.simulate` function, it should be ensured that</span>
+<span class="sd">        migration rates to source populations of mass migration events are zero</span>
+<span class="sd">        after the mass migration (viewed backwards in time).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Make sure that branch length units are either &quot;myr&quot; or &quot;yr&quot;.</span>
+    <span class="n">allowed_branch_lenth_units</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;myr&quot;</span><span class="p">,</span> <span class="s2">&quot;yr&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">branch_length_units</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed_branch_lenth_units</span><span class="p">:</span>
+        <span class="n">err</span> <span class="o">=</span> <span class="s2">&quot;The specified units for branch lengths (&quot;</span>
+        <span class="n">err</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="n">branch_length_units</span><span class="si">}</span><span class="s1">&quot;) are not accepted. &#39;</span>
+        <span class="n">err</span> <span class="o">+=</span> <span class="s1">&#39;Accepted units are &quot;myr&quot; (millions of years) or &quot;yr&quot; (years).&#39;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+
+    <span class="n">generation_time</span> <span class="o">=</span> <span class="n">check_generation_time</span><span class="p">(</span><span class="n">generation_time</span><span class="p">)</span>
+    <span class="c1"># Get the number of generations per branch length unit.</span>
+    <span class="n">generations_per_branch_length_unit</span> <span class="o">=</span> <span class="n">get_generations_per_branch_length_unit</span><span class="p">(</span>
+        <span class="n">branch_length_units</span><span class="p">,</span> <span class="n">generation_time</span>
+    <span class="p">)</span>
+
+    <span class="n">translate_string</span><span class="p">,</span> <span class="n">tree_string</span> <span class="o">=</span> <span class="n">parse_nexus</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+    <span class="n">species_name_map</span> <span class="o">=</span> <span class="n">parse_translate_command</span><span class="p">(</span><span class="n">translate_string</span><span class="p">)</span>
+    <span class="n">clean_tree_string</span> <span class="o">=</span> <span class="n">strip_extra_annotations</span><span class="p">(</span><span class="n">tree_string</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">process_starbeast_tree</span><span class="p">(</span>
+        <span class="n">clean_tree_string</span><span class="p">,</span> <span class="n">generations_per_branch_length_unit</span><span class="p">,</span> <span class="n">species_name_map</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="parse_species_tree"><a class="viewcode-back" href="../../demography.html#msprime.parse_species_tree">[docs]</a><span class="k">def</span> <span class="nf">parse_species_tree</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">Ne</span><span class="p">,</span> <span class="n">branch_length_units</span><span class="o">=</span><span class="s2">&quot;gen&quot;</span><span class="p">,</span> <span class="n">generation_time</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function parses a species tree in</span>
+<span class="sd">    `Newick &lt;https://en.wikipedia.org/wiki/Newick_format&gt;`_ format and defines a</span>
+<span class="sd">    simulation model according to the species tree. The tree is assumed to be</span>
+<span class="sd">    rooted and ultrametric and branch lengths must be included and correspond to</span>
+<span class="sd">    time, either in units of millions of years, years, or generations. Leaves must</span>
+<span class="sd">    be named.</span>
+
+<span class="sd">    After reading the input tree, this function defines a</span>
+<span class="sd">    :class:`.PopulationConfiguration` instance for each terminal node in the tree,</span>
+<span class="sd">    corresponding to extant species. These population configurations store the</span>
+<span class="sd">    species&#39; name and population size. The specified Ne is used as the size of all</span>
+<span class="sd">    populations. Additionally, one or more :class:`.MassMigration` instances are</span>
+<span class="sd">    defined for each internal node, with the time of the mass migration set</span>
+<span class="sd">    according to the age of the node in the species tree. :math:`n - 1` mass</span>
+<span class="sd">    migration events are defined for internal nodes with `n` descendants, meaning</span>
+<span class="sd">    that a single event is defined for bifurcating nodes. For each internal node,</span>
+<span class="sd">    the left-most of the descendant populations is arbitrarily selected as the</span>
+<span class="sd">    destination in all mass migrations defined for that node.</span>
+
+<span class="sd">    :param str tree: The tree string in Newick format, with named leaves and branch</span>
+<span class="sd">        lengths.</span>
+<span class="sd">    :param float Ne: The effective population size.</span>
+<span class="sd">    :param str branch_length_units: The units of time in which the species tree&#39;s</span>
+<span class="sd">        branch lengths are measured. Allowed branch length units are millions of</span>
+<span class="sd">        years, years, and generations; these should be specified with the strings</span>
+<span class="sd">        ``&quot;myr&quot;``, ``&quot;yr&quot;``, or ``&quot;gen&quot;``, respectively. This defaults to</span>
+<span class="sd">        ``&quot;gen&quot;``.</span>
+<span class="sd">    :param float generation_time: The number of years per generation. If and only</span>
+<span class="sd">        if the branch lengths are not in units of generations, the generation time</span>
+<span class="sd">        must be specified. This defaults to `None`.</span>
+<span class="sd">    :type generation_time: float or None</span>
+<span class="sd">    :return: A tuple of two lists of which the first contains</span>
+<span class="sd">        :class:`.PopulationConfiguration` instances and the second contains</span>
+<span class="sd">        :class:`.MassMigration` instances. The population configurations specify</span>
+<span class="sd">        the size of each population and the species name corresponding to each</span>
+<span class="sd">        population. Species names are stored as metadata in each</span>
+<span class="sd">        :class:`.PopulationConfiguration` instance, with the metadata tag</span>
+<span class="sd">        &quot;species_name&quot;. Sampling configurations and growth rates are not specified</span>
+<span class="sd">        in the population configurations. The list of population configurations is</span>
+<span class="sd">        ordered according to the order of the corresponding extant species in a</span>
+<span class="sd">        `post-order tree traversal</span>
+<span class="sd">        &lt;https://en.wikipedia.org/wiki/Tree_traversal#Post-order_(LRN)&gt;`_. The list</span>
+<span class="sd">        of mass migration events is ordered by the time of the events, from young</span>
+<span class="sd">        to old events.</span>
+<span class="sd">    :rtype: (list, list)</span>
+<span class="sd">    :warning: This function does not modify migration matrices. When the population</span>
+<span class="sd">        configurations and mass migration events returned by this function are used</span>
+<span class="sd">        to simulate with the :func:`.simulate` function, it should be ensured that</span>
+<span class="sd">        migration rates to source populations of mass migration events are zero</span>
+<span class="sd">        after the mass migration (viewed backwards in time).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Make sure that branch length units are either &quot;myr&quot;, &quot;yr&quot;, or &quot;gen&quot;.</span>
+    <span class="n">allowed_branch_lenth_units</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;myr&quot;</span><span class="p">,</span> <span class="s2">&quot;yr&quot;</span><span class="p">,</span> <span class="s2">&quot;gen&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">branch_length_units</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed_branch_lenth_units</span><span class="p">:</span>
+        <span class="n">err</span> <span class="o">=</span> <span class="s2">&quot;The specified units for branch lengths (&quot;</span>
+        <span class="n">err</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="n">branch_length_units</span><span class="si">}</span><span class="s1">&quot;) are not accepted. &#39;</span>
+        <span class="n">err</span> <span class="o">+=</span> <span class="s1">&#39;Accepted units are &quot;myr&quot; (millions of years), &quot;yr&quot; (years), &#39;</span>
+        <span class="n">err</span> <span class="o">+=</span> <span class="s1">&#39;and &quot;gen&quot; (generations).&#39;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">Ne</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">Ne</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Population size Ne must be numeric.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">Ne</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Population size Ne must be &gt; 0.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Make sure that the generation time is either None or positive.</span>
+    <span class="k">if</span> <span class="n">generation_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">generation_time</span> <span class="o">=</span> <span class="n">check_generation_time</span><span class="p">(</span><span class="n">generation_time</span><span class="p">)</span>
+
+    <span class="c1"># Make sure that the generation time is specified if and only if</span>
+    <span class="c1"># branch lengths are not in units of generations.</span>
+    <span class="k">if</span> <span class="n">branch_length_units</span> <span class="o">==</span> <span class="s2">&quot;gen&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">generation_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">err</span> <span class="o">=</span> <span class="s1">&#39;With branch lengths in units of generations (&quot;gen&quot;), &#39;</span>
+            <span class="n">err</span> <span class="o">+=</span> <span class="s2">&quot;a generation time should not be specified additionally.&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">generation_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">err</span> <span class="o">=</span> <span class="s2">&quot;With branch lengths in units of &quot;</span>
+            <span class="n">err</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="n">branch_length_units</span><span class="si">}</span><span class="s1">&quot;, a generation time must be &#39;</span>
+            <span class="n">err</span> <span class="o">+=</span> <span class="s2">&quot;specified additionally.&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+
+    <span class="c1"># Get the number of generations per branch length unit.</span>
+    <span class="n">generations_per_branch_length_unit</span> <span class="o">=</span> <span class="n">get_generations_per_branch_length_unit</span><span class="p">(</span>
+        <span class="n">branch_length_units</span><span class="p">,</span> <span class="n">generation_time</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Parse the tree with the newick library.</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">parse_newick</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">generations_per_branch_length_unit</span><span class="p">)</span>
+
+    <span class="c1"># Define populations and demographic events according to the</span>
+    <span class="c1"># specified population size and the divergence times in the species tree.</span>
+    <span class="c1"># Per divergence event (node in the tree), a mass migration with a proportion</span>
+    <span class="c1"># of 1 of the population is used. The destination is the left-most leaf for</span>
+    <span class="c1"># each node. Because we are using the n leaf populations, we map each node back</span>
+    <span class="c1"># to the leaf population that it corresponds to.</span>
+    <span class="n">populations</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">events</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">leaf_map</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="s2">&quot;postorder&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">descendants</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># Per extant species (= leaf node) in the tree, add a population with</span>
+            <span class="c1"># size Ne. Species names are stored as metadata with the &quot;species_name&quot;</span>
+            <span class="c1"># tag.</span>
+            <span class="n">populations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">demog</span><span class="o">.</span><span class="n">Population</span><span class="p">(</span><span class="n">initial_size</span><span class="o">=</span><span class="n">Ne</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+            <span class="p">)</span>
+            <span class="n">leaf_map</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">populations</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Per internal node, add one (if the node is bifurcating) or multiple</span>
+            <span class="c1"># (if the node is multi-furcating) MassMigrations. The parent species</span>
+            <span class="c1"># maps implicitly to the left-most child species, so we don&#39;t generate</span>
+            <span class="c1"># any MassMigrations for that.</span>
+            <span class="n">leaf_map</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">leaf_map</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">descendants</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+            <span class="c1"># For each child species after the left-most one, we create</span>
+            <span class="c1"># a MassMigration into the left-most species.</span>
+            <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">descendants</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+                <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">demog</span><span class="o">.</span><span class="n">MassMigration</span><span class="p">(</span>
+                        <span class="n">source</span><span class="o">=</span><span class="n">leaf_map</span><span class="p">[</span><span class="n">child</span><span class="p">],</span> <span class="n">dest</span><span class="o">=</span><span class="n">leaf_map</span><span class="p">[</span><span class="n">node</span><span class="p">],</span> <span class="n">time</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">time</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+    <span class="k">return</span> <span class="n">demog</span><span class="o">.</span><span class="n">Demography</span><span class="p">(</span><span class="n">populations</span><span class="o">=</span><span class="n">populations</span><span class="p">,</span> <span class="n">events</span><span class="o">=</span><span class="n">events</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">process_starbeast_tree</span><span class="p">(</span>
+    <span class="n">tree_string</span><span class="p">,</span> <span class="n">generations_per_branch_length_unit</span><span class="p">,</span> <span class="n">species_name_map</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Process the specified starbeast newick string with embedded dmv annotations</span>
+<span class="sd">    (but no others) and return the resulting population_configurations and</span>
+<span class="sd">    demographic_events.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">parse_newick</span><span class="p">(</span><span class="n">tree_string</span><span class="p">,</span> <span class="n">generations_per_branch_length_unit</span><span class="p">)</span>
+    <span class="n">populations</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">events</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># The destination is the left-most leaf for each node. Because we are</span>
+    <span class="c1"># using the n leaf populations, we map each node back to the leaf</span>
+    <span class="c1"># population that it corresponds to.</span>
+    <span class="n">leaf_map</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="s2">&quot;postorder&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Annotation missing for one or more nodes.&quot;</span><span class="p">)</span>
+        <span class="n">find_pattern</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&amp;dmv=</span><span class="se">\\</span><span class="s2">{([</span><span class="se">\\</span><span class="s2">d</span><span class="se">\\</span><span class="s2">.]+?)</span><span class="se">\\</span><span class="s2">}&quot;</span>
+        <span class="n">dmv_patterns</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">find_pattern</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">dmv_patterns</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No dmv annotation for node&quot;</span><span class="p">)</span>
+        <span class="n">pop_size</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">dmv_patterns</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">generations_per_branch_length_unit</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">descendants</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># Per extant species (= leaf node) in the tree, add a population with</span>
+            <span class="c1"># size pop_size. Species names are stored as metadata with the &quot;species_name&quot;</span>
+            <span class="c1"># tag.</span>
+            <span class="n">newick_id</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;[&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">species_name</span> <span class="o">=</span> <span class="n">species_name_map</span><span class="p">[</span><span class="n">newick_id</span><span class="p">]</span>
+            <span class="n">populations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">demog</span><span class="o">.</span><span class="n">Population</span><span class="p">(</span><span class="n">initial_size</span><span class="o">=</span><span class="n">pop_size</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">species_name</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">leaf_map</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">populations</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Per internal node, add one (if the node is bifurcating) or multiple</span>
+            <span class="c1"># (if the node is multi-furcating) MassMigrations. The parent species</span>
+            <span class="c1"># maps implicitly to the left-most child species, so we don&#39;t generate</span>
+            <span class="c1"># any MassMigrations for that.</span>
+            <span class="n">leaf_map</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">leaf_map</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">descendants</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+            <span class="c1"># For each child species after the left-most one, we create</span>
+            <span class="c1"># a MassMigration into the left-most species.</span>
+            <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">descendants</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+                <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">demog</span><span class="o">.</span><span class="n">MassMigration</span><span class="p">(</span>
+                        <span class="n">source</span><span class="o">=</span><span class="n">leaf_map</span><span class="p">[</span><span class="n">child</span><span class="p">],</span> <span class="n">dest</span><span class="o">=</span><span class="n">leaf_map</span><span class="p">[</span><span class="n">node</span><span class="p">],</span> <span class="n">time</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">time</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">demog</span><span class="o">.</span><span class="n">PopulationParametersChange</span><span class="p">(</span>
+                    <span class="n">node</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="n">pop_size</span><span class="p">,</span> <span class="n">population_id</span><span class="o">=</span><span class="n">leaf_map</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+    <span class="k">return</span> <span class="n">demog</span><span class="o">.</span><span class="n">Demography</span><span class="p">(</span><span class="n">populations</span><span class="o">=</span><span class="n">populations</span><span class="p">,</span> <span class="n">events</span><span class="o">=</span><span class="n">events</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">is_number</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">float</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+
+<span class="k">def</span> <span class="nf">check_generation_time</span><span class="p">(</span><span class="n">generation_time</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">generation_time</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">generation_time</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Generation time must be numeric.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">generation_time</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Generation time must be &gt; 0.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">generation_time</span>
+
+
+<span class="k">def</span> <span class="nf">get_generations_per_branch_length_unit</span><span class="p">(</span><span class="n">branch_length_units</span><span class="p">,</span> <span class="n">generation_time</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Method to calculate the number of generations per branch length</span>
+<span class="sd">    unit, given the branch length unit and a generation time.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">branch_length_units</span> <span class="o">==</span> <span class="s2">&quot;gen&quot;</span><span class="p">:</span>
+        <span class="n">generations_per_branch_length_unit</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">branch_length_units</span> <span class="o">==</span> <span class="s2">&quot;myr&quot;</span><span class="p">:</span>
+        <span class="n">generations_per_branch_length_unit</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">**</span> <span class="mi">6</span> <span class="o">/</span> <span class="n">generation_time</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">generations_per_branch_length_unit</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">generation_time</span>
+    <span class="k">return</span> <span class="n">generations_per_branch_length_unit</span>
+
+
+<span class="k">def</span> <span class="nf">parse_newick</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">branch_length_multiplier</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parses the newick tree and annotates the resulting nodes with their</span>
+<span class="sd">    time values, appropriately scaled.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Parse the newick tree string.</span>
+    <span class="n">parsed</span> <span class="o">=</span> <span class="n">newick</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parsed</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Not a valid newick tree: &#39;</span><span class="si">{</span><span class="n">tree</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">parsed</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Set node depths (distances from root).</span>
+    <span class="n">stack</span> <span class="o">=</span> <span class="p">[(</span><span class="n">root</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
+    <span class="n">num_nodes</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">max_depth</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">node</span><span class="p">,</span> <span class="n">depth</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">depth</span> <span class="o">&gt;</span> <span class="n">max_depth</span><span class="p">:</span>
+            <span class="n">max_depth</span> <span class="o">=</span> <span class="n">depth</span>
+        <span class="n">num_nodes</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">depth</span> <span class="o">=</span> <span class="n">depth</span>
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">descendants</span><span class="p">:</span>
+            <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">child</span><span class="p">,</span> <span class="n">depth</span> <span class="o">+</span> <span class="n">child</span><span class="o">.</span><span class="n">length</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">num_nodes</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Newick tree must have at least three nodes&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Set node times (distances from present).</span>
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">walk</span><span class="p">():</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="p">(</span><span class="n">max_depth</span> <span class="o">-</span> <span class="n">node</span><span class="o">.</span><span class="n">depth</span><span class="p">)</span> <span class="o">*</span> <span class="n">branch_length_multiplier</span>
+
+    <span class="k">return</span> <span class="n">root</span>
+
+
+<span class="k">def</span> <span class="nf">strip_extra_annotations</span><span class="p">(</span><span class="n">tree_string</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes the input newick string and strips all extended newick annotations</span>
+<span class="sd">    other than the dmv attribute, returning the simplified newick string.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;[&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tree_string</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No annotation in tree string.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tree_string</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;[&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="n">tree_string</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;]&quot;</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unbalanced square brackets in annotation.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;&amp;dmv={&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tree_string</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No dmv tag in annotation.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;}&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tree_string</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No closing curly brackets in annotation.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Make sure that each substring that begins with an opening square bracket and ends</span>
+    <span class="c1"># with a closing square bracket does not contain any further square or round brackets</span>
+    <span class="c1"># in it and that it does include the dmv tag.</span>
+    <span class="n">in_annotation</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">annotation_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tree_string</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">tree_string</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;[&quot;</span><span class="p">:</span>
+            <span class="n">in_annotation</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">annotation_string</span> <span class="o">+=</span> <span class="n">tree_string</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">tree_string</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;]&quot;</span><span class="p">:</span>
+            <span class="n">in_annotation</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">annotation_string</span> <span class="o">+=</span> <span class="n">tree_string</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+            <span class="k">assert</span> <span class="s2">&quot;[&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">annotation_string</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;Square bracket in annotation&quot;</span>
+            <span class="k">assert</span> <span class="s2">&quot;]&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">annotation_string</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;Square bracket in annotation&quot;</span>
+            <span class="k">assert</span> <span class="n">annotation_string</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;&amp;dmv=&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Multiple or no dmv tags&quot;</span>
+            <span class="c1"># Make sure that the dmv tag is followed by a closing curly bracket.</span>
+            <span class="c1"># Also ensure that the dmv tag is the first in the annotation.</span>
+            <span class="n">dmv_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="n">in_dmv</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">annotation_string</span><span class="p">)):</span>
+                <span class="n">dmv_string</span> <span class="o">+=</span> <span class="n">annotation_string</span><span class="p">[</span><span class="n">y</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">annotation_string</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;}&quot;</span><span class="p">:</span>
+                    <span class="k">break</span>
+            <span class="n">err</span> <span class="o">=</span> <span class="s2">&quot;Uneven curly parentheses in dmv annotation&quot;</span>
+            <span class="k">assert</span> <span class="n">dmv_string</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;{&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">dmv_string</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;}&quot;</span><span class="p">),</span> <span class="n">err</span>
+            <span class="k">assert</span> <span class="n">dmv_string</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;{&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Multiple or no values in dmv annotation&quot;</span>
+            <span class="n">annotation_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="c1"># Make sure that a positive number is found between curly brackets.</span>
+            <span class="n">clean_dmv_string</span> <span class="o">=</span> <span class="n">dmv_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;{&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">assert</span> <span class="n">is_number</span><span class="p">(</span><span class="n">clean_dmv_string</span><span class="p">),</span> <span class="s2">&quot;dmv annotation is not a number&quot;</span>
+            <span class="k">assert</span> <span class="nb">float</span><span class="p">(</span><span class="n">clean_dmv_string</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;dmv annotation is negative&quot;</span>
+        <span class="k">elif</span> <span class="n">in_annotation</span><span class="p">:</span>
+            <span class="n">annotation_string</span> <span class="o">+=</span> <span class="n">tree_string</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+
+    <span class="c1"># Because the newick module doesn&#39;t support parsing extended newick attributes</span>
+    <span class="c1"># in general, we have to clean thing up manually before parsing the tree. Here,</span>
+    <span class="c1"># we get rid of all annotations except for dmv.</span>
+    <span class="n">clean_tree_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">in_annotation</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">in_dmv</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tree_string</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">tree_string</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;[&quot;</span><span class="p">:</span>
+            <span class="n">in_annotation</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">clean_tree_string</span> <span class="o">+=</span> <span class="n">tree_string</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">tree_string</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;]&quot;</span><span class="p">:</span>
+            <span class="n">in_annotation</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">clean_tree_string</span> <span class="o">+=</span> <span class="n">tree_string</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">in_annotation</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">tree_string</span><span class="p">[</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;[&quot;</span> <span class="ow">and</span> <span class="n">tree_string</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&amp;&quot;</span><span class="p">:</span>
+                <span class="n">clean_tree_string</span> <span class="o">+=</span> <span class="s2">&quot;&amp;&quot;</span>
+            <span class="k">if</span> <span class="n">tree_string</span><span class="p">[</span><span class="n">x</span> <span class="o">-</span> <span class="mi">5</span> <span class="p">:</span> <span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;dmv={&quot;</span><span class="p">:</span>
+                <span class="n">in_dmv</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">clean_tree_string</span> <span class="o">+=</span> <span class="s2">&quot;dmv={&quot;</span>
+            <span class="k">if</span> <span class="n">in_dmv</span><span class="p">:</span>
+                <span class="n">clean_tree_string</span> <span class="o">+=</span> <span class="n">tree_string</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">tree_string</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;}&quot;</span><span class="p">:</span>
+                <span class="n">in_dmv</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">clean_tree_string</span> <span class="o">+=</span> <span class="n">tree_string</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+
+    <span class="c1"># Make sure that only dmv annotation remains in the tree string.</span>
+    <span class="n">in_annotation</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">annotation_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clean_tree_string</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">clean_tree_string</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;[&quot;</span><span class="p">:</span>
+            <span class="n">in_annotation</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">annotation_string</span> <span class="o">+=</span> <span class="n">clean_tree_string</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">clean_tree_string</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;]&quot;</span><span class="p">:</span>
+            <span class="n">in_annotation</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">annotation_string</span> <span class="o">+=</span> <span class="n">clean_tree_string</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+            <span class="k">assert</span> <span class="n">annotation_string</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">7</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;[&amp;dmv={&quot;</span><span class="p">,</span> <span class="s2">&quot;Annotation could not be read&quot;</span>
+            <span class="k">assert</span> <span class="n">annotation_string</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span> <span class="o">==</span> <span class="s2">&quot;}]&quot;</span><span class="p">,</span> <span class="s2">&quot;Annotation could not be read&quot;</span>
+            <span class="k">assert</span> <span class="n">is_number</span><span class="p">(</span><span class="n">annotation_string</span><span class="p">[</span><span class="mi">7</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">]),</span> <span class="s2">&quot;dmv annotation is not a number&quot;</span>
+            <span class="k">assert</span> <span class="nb">float</span><span class="p">(</span><span class="n">annotation_string</span><span class="p">[</span><span class="mi">7</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;dmv annotation is negative&quot;</span>
+            <span class="n">annotation_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">in_annotation</span><span class="p">:</span>
+            <span class="n">annotation_string</span> <span class="o">+=</span> <span class="n">clean_tree_string</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">clean_tree_string</span>
+
+
+<span class="k">def</span> <span class="nf">parse_translate_command</span><span class="p">(</span><span class="n">translate_command</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parses the species IDs used in a nexus newick string to their</span>
+<span class="sd">    more verbose species names. Returns a dictionary mapping the newick</span>
+<span class="sd">    values to the species names.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Use the translation block to back-translate species IDs in</span>
+    <span class="c1"># the tree string. The Nexus format definition does not</span>
+    <span class="c1"># define the format of the translate block. Here, we only</span>
+    <span class="c1"># allow comma-separated translation pairs with the species</span>
+    <span class="c1"># name used in the tree string to the left and the translation</span>
+    <span class="c1"># to the right.</span>
+    <span class="c1"># An example of an allowed translation is:</span>
+    <span class="c1"># &quot;translate 1 spc1, 2 spc2, 3 spc3;&quot;</span>
+
+    <span class="c1"># First, we trim the &quot;translate&quot; tag from the beginning.</span>
+    <span class="k">assert</span> <span class="n">translate_command</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;translate &quot;</span>
+    <span class="n">translate_command</span> <span class="o">=</span> <span class="n">translate_command</span><span class="p">[</span><span class="mi">10</span><span class="p">:]</span>
+    <span class="n">mapping</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">translate_command</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">):</span>
+        <span class="n">item_list</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">item_list</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing translation in translation block.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">item_list</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">err</span> <span class="o">=</span> <span class="s2">&quot;Species IDs in the translation block appear to include &quot;</span>
+            <span class="n">err</span> <span class="o">+=</span> <span class="s2">&quot;whitespace. This is not supported.&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+        <span class="n">newick_id</span><span class="p">,</span> <span class="n">species_name</span> <span class="o">=</span> <span class="n">item_list</span>
+        <span class="k">if</span> <span class="n">newick_id</span> <span class="ow">in</span> <span class="n">mapping</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Newick ID </span><span class="si">{</span><span class="n">newick_id</span><span class="si">}</span><span class="s2"> defined multiple times in translation&quot;</span>
+            <span class="p">)</span>
+        <span class="n">mapping</span><span class="p">[</span><span class="n">newick_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">species_name</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">mapping</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mapping</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Duplicate species names in translation&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mapping</span>
+
+
+<span class="k">def</span> <span class="nf">parse_nexus</span><span class="p">(</span><span class="n">nexus</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parse the specified nexus string, returning translate and tree comand</span>
+<span class="sd">    strings.</span>
+
+<span class="sd">    NOTE because we&#39;re assuming that the data is generated by starbeast we</span>
+<span class="sd">    aren&#39;t exhaustive in checking for malformed input. We try to catch</span>
+<span class="sd">    a lot of errors and to give good error messages in these cases. We also</span>
+<span class="sd">    put a lot of assertions to make sure that we&#39;re not silently</span>
+<span class="sd">    accepting malformed input data. Nonetheless, this is definitely not</span>
+<span class="sd">    a general purpose Nexus parser and should not be expected to work on</span>
+<span class="sd">    anything other than input that closely resembles starbeast output.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># From the Nexus format definition (Maddison et al. 1997):</span>
+    <span class="c1"># &quot;For the most part, whitespace, inluding newline characters, is ignored,</span>
+    <span class="c1"># with two exceptions: (1) whitespace indicates boundaries between words;</span>
+    <span class="c1"># (2) in interleaved matrices, newline characters indicate the boundary</span>
+    <span class="c1"># between data of different taxa.&quot;</span>
+    <span class="c1"># As we do not parse matrices (we&#39;re only interested in taxa and trees</span>
+    <span class="c1"># blocks), we ignore (2), replace newline characters with spaces and</span>
+    <span class="c1"># replace multiple whitespaces with a single one.</span>
+    <span class="n">nexus_string</span> <span class="o">=</span> <span class="n">nexus</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
+    <span class="n">nexus_string</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">nexus_string</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+
+    <span class="c1"># From the Nexus format definition (Maddison et al. 1997):</span>
+    <span class="c1"># &quot;Commands or subcommands that differ only in case are homonymous.&quot;</span>
+    <span class="c1"># We turn the whole nexus string into lowercase.</span>
+    <span class="n">nexus_string</span> <span class="o">=</span> <span class="n">nexus_string</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+    <span class="c1"># Make sure that the string is in Nexus format.</span>
+    <span class="k">if</span> <span class="n">nexus_string</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;#nexus&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The species tree does not appear to be in Nexus format.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># From the Nexus format definition (Maddison et al. 1997):</span>
+    <span class="c1"># &quot;Blocks are series of commands, beginning with a Begin command and ending</span>
+    <span class="c1"># with an End command.&quot;</span>
+    <span class="c1"># As semicolons are used only to terminate commands, potentially present</span>
+    <span class="c1"># whitespace before semicolons has no meaning; we remove it for easier</span>
+    <span class="c1"># parsing.</span>
+    <span class="c1"># Then we identify the trees block and raise a ValueError if none is found.</span>
+    <span class="c1"># This could be done with a regexp instead.</span>
+    <span class="n">nexus_string</span> <span class="o">=</span> <span class="n">nexus_string</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; ;&quot;</span><span class="p">,</span> <span class="s2">&quot;;&quot;</span><span class="p">)</span>
+    <span class="n">tree_block_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">in_tree_block</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nexus_string</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">nexus_string</span><span class="p">[</span><span class="n">x</span> <span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">12</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;begin trees;&quot;</span><span class="p">:</span>
+            <span class="n">in_tree_block</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">tree_block_string</span> <span class="o">+=</span> <span class="n">nexus_string</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">in_tree_block</span> <span class="ow">and</span> <span class="n">nexus_string</span><span class="p">[</span><span class="n">x</span> <span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;end;&quot;</span><span class="p">:</span>
+            <span class="n">tree_block_string</span> <span class="o">+=</span> <span class="n">nexus_string</span><span class="p">[</span><span class="n">x</span> <span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span><span class="p">]</span>
+            <span class="k">break</span>
+        <span class="k">elif</span> <span class="n">in_tree_block</span><span class="p">:</span>
+            <span class="n">tree_block_string</span> <span class="o">+=</span> <span class="n">nexus_string</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">tree_block_string</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">tree_block_string</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:]</span> <span class="o">!=</span> <span class="s2">&quot;end;&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The Nexus string does not include a complete trees block.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># From the Nexus format definition (Maddison et al. 1997):</span>
+    <span class="c1"># &quot;Commands follow a simple format: the first token in the command</span>
+    <span class="c1"># is the command name, which is followed by a series of tokens and</span>
+    <span class="c1"># whitespace; the command is terminated by a semicolon.&quot;</span>
+    <span class="c1"># Get the commands from the tree block, ignoring the begin and end</span>
+    <span class="c1"># statements of the block.</span>
+    <span class="n">tree_block_commands</span> <span class="o">=</span> <span class="n">tree_block_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
+    <span class="n">tree_block_commands</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">tree_block_commands</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="n">tree_block_commands</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;begin trees&quot;</span><span class="p">,</span> <span class="s2">&quot;Tree block malformed&quot;</span>
+    <span class="k">assert</span> <span class="n">tree_block_commands</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;Tree block malformed&quot;</span>
+    <span class="k">assert</span> <span class="n">tree_block_commands</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;end&quot;</span><span class="p">,</span> <span class="s2">&quot;Tree block malformed&quot;</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">tree_block_commands</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;Tree block malformed&quot;</span>
+    <span class="n">tree_block_commands</span> <span class="o">=</span> <span class="n">tree_block_commands</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="c1"># Ensure that exactly one of the commands is a translate command and</span>
+    <span class="c1"># exactly one is a tree command, which is the case when the Nexus file</span>
+    <span class="c1"># is written with TreeAnnotator based on a posterior tree distribution</span>
+    <span class="c1"># generated with StarBEAST.</span>
+    <span class="n">translate_commands</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">tree_commands</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">command</span> <span class="ow">in</span> <span class="n">tree_block_commands</span><span class="p">:</span>
+        <span class="n">command_list</span> <span class="o">=</span> <span class="n">command</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">command_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;translate&quot;</span><span class="p">:</span>
+            <span class="n">translate_commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">command_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;tree&quot;</span><span class="p">:</span>
+            <span class="n">tree_commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">translate_commands</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">err</span> <span class="o">=</span> <span class="s2">&quot;The Nexus string does not contain exactly one translate command.&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tree_commands</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">err</span> <span class="o">=</span> <span class="s2">&quot;The Nexus string does not contain exactly one tree command.&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+
+    <span class="n">translate_command</span> <span class="o">=</span> <span class="n">translate_commands</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">tree_command</span> <span class="o">=</span> <span class="n">tree_commands</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="s2">&quot;(&quot;</span> <span class="ow">in</span> <span class="n">tree_command</span><span class="p">,</span> <span class="s2">&quot;No parentheses in tree string&quot;</span>
+    <span class="n">tree_string</span> <span class="o">=</span> <span class="n">tree_command</span><span class="p">[</span><span class="n">tree_command</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">)</span> <span class="p">:]</span>
+    <span class="k">return</span> <span class="n">translate_command</span><span class="p">,</span> <span class="n">tree_string</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2015-2020, Tskit Developers
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
